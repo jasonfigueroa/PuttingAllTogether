@@ -23,7 +23,7 @@ void addData(vec_str_t *v) {
     char tempString[256];
     char *newStrPtr;
 
-    //initializing i to 1 to skip headers
+    //offsetting loop by 1 to skip headers
     for(i = 1; i < totalRecords + 1; i++) {
         strcpy(tempString, content[i]);
         char *newStrPtr = (char*)malloc(strlen(tempString) * sizeof(char));
@@ -52,8 +52,7 @@ void buildRecords(vec_str_t *str_vec, vec_record_t *record_vec) {
 
     for (i = 0; i < totalRecords; i++) {
         rec = (record*)malloc(sizeof(record));
-
-        /* get the first token */
+        
         token = strtok(str_vec->data[i], ",");
 
         tempStr = (char*)malloc(strlen(token) * sizeof(char));
@@ -115,23 +114,17 @@ void printRecords(vec_record_t *record_vec) {
 
 int main() {
     vec_str_t v;
-    int i;
 
     vec_init(&v);
 
     addData(&v);
 
-    //initializing record vector
     vec_record_t rec_v;
     vec_init(&rec_v);
 
     buildRecords(&v, &rec_v);
 
     printRecords(&rec_v);
-
-//    for (i = 0; i < v.length; i++) {
-//        printf("row %d: %s\n", i, v.data[i]);
-//    }
 
     vec_deinit(&v);
     vec_deinit(&rec_v);
